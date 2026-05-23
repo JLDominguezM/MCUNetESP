@@ -1,0 +1,18 @@
+I (32025) vww: no-pers  scores=[   0,   0]  inv=3396556 uESP-ROM:esp32s3-20210327
+I (1075) vww: MCUNet-VWW demo on XIAO ESP32-S3 Sense
+I (1075) vww: free heap internal: 354711   PSRAM: 6329528
+I (1105) camera: Camera PID=0x26 VER=0x42 MIDL=0x7f MIDH=0xa2
+I (1105) camera: Detected OV2640 camera
+I (1115) camera: Detected camera at address=0x30
+I (1345) vww: model OK: in=[1,144,144,3] type=9  out=[1,2] type=9
+I (1345) vww: arena used: 473644 / 614400 bytes
+I (4765) vww: no-pers  scores=[   1,  -1]  inv=3396536 us  avg=3396536 us
+I (8165) vww: PERSON   scores=[ -11,  11]  inv=3396523 us  avg=3396529 us
+I (11575) vww: no-pers  scores=[  13, -13]  inv=3396375 us  avg=3396478 us
+I (14985) vww: PERSON   scores=[ -11,  11]  inv=3396326 us  avg=3396440 us
+I (18395) vww: PERSON   scores=[  -3,   3]  inv=3396296 us  avg=3396411 us
+I (21805) vww: no-pers  scores=[   0,   0]  inv=3396345 us  avg=3396400 us
+I (25215) vww: no-pers  scores=[   3,  -3]  inv=3396324 us  avg=3396389 us
+I (28625) vww: PERSON   scores=[  -2,   2]  inv=3396274 us  avg=3396374 us
+I (32035) vww: no-pers  scores=[   4,  -4]  inv=3396306 us  avg=3396367 us
+I (35445) vww: no-pers  scores=[  12, -12]  inv=3396301 us  avg=3396360 us

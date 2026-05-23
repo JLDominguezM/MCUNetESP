@@ -49,6 +49,31 @@ Cinco hitos completados:
 
 Capturada a 240×240 RGB565 directamente por el sensor del Sense. Para destrabar la cámara hizo falta forzar `CONFIG_SCCB_HARDWARE_I2C_PORT0=y` en `sdkconfig.defaults` y reiniciar el chip por power-cycle físico tras varios flashes acumulados. Detalles en [`docs/findings.md`](docs/findings.md).
 
+## Demo en vivo (vww_demo)
+
+Una vez la cámara funciona y el firmware `vww_demo` se reflashea con el Kconfig SCCB correcto, el ciclo es: capturar frame → preprocesar → invocar modelo → log. Sin imagen estática embebida, el modelo predice sobre lo que ve en cada iteración.
+
+Log real de 10 inferencias consecutivas apuntando la cámara a una persona en condiciones de iluminación ambiental (`docs/logs/vww_demo_live.log`):
+
+```
+I camera: Camera PID=0x26 VER=0x42 MIDL=0x7f MIDH=0xa2
+I camera: Detected OV2640 camera at address=0x30
+I vww: model OK: in=[1,144,144,3] type=9  out=[1,2] type=9
+I vww: arena used: 473644 / 614400 bytes
+I vww: no-pers  scores=[   1,  -1]  inv=3.40 s
+I vww: PERSON   scores=[ -11,  11]
+I vww: no-pers  scores=[  13, -13]
+I vww: PERSON   scores=[ -11,  11]
+I vww: PERSON   scores=[  -3,   3]
+I vww: no-pers  scores=[   0,   0]
+I vww: no-pers  scores=[   3,  -3]
+I vww: PERSON   scores=[  -2,   2]
+I vww: no-pers  scores=[   4,  -4]
+I vww: no-pers  scores=[  12, -12]
+```
+
+En 10 inferencias seguidas, 4 dieron PERSON y 6 no-pers, con scores absolutos bajos (mayoría entre ±5). Esto confirma cuantitativamente la brecha out-of-distribution documentada arriba: el modelo está al borde de la decisión, oscilando entre detección y no-detección frame a frame en condiciones reales no controladas. Sobre la imagen del repo MCUNet (entrenamiento ideal), los mismos modelo y firmware dan scores ±51 (decisión clara).
+
 La imagen se redimensiona al input de cada modelo:
 
 ![Imagen redimensionada por input size](docs/plots/05_test_image_resized.png)

@@ -46,3 +46,7 @@ CONFIG_ESP_INT_WDT=n
 
 # Partition table: app slot grande para el modelo (~600 KB).
 CONFIG_PARTITION_TABLE_SINGLE_APP_LARGE=y
+
+# SCCB en I2C port 0 — port 1 (default) no funciona en este HW.
+CONFIG_SCCB_HARDWARE_I2C_PORT0=y
+# CONFIG_SCCB_HARDWARE_I2C_PORT1 is not set
