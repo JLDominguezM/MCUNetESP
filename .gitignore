@@ -1,0 +1,39 @@
+# Modelos descargados (los baja host/download_models.py)
+models/*.tflite
+models/*.pkl
+models/*.pt
+models/*.pth
+
+# Build artifacts y configs generados de ESP-IDF
+firmware/*/build/
+firmware/*/sdkconfig
+firmware/*/sdkconfig.old
+firmware/*/managed_components/
+firmware/*/dependencies.lock
+
+# Generated C arrays (los regenera convert_to_c_array.sh / image_to_c.py)
+firmware/*/main/model_data.cc
+firmware/*/main/test_image.cc
+
+# Imágenes capturadas que no son la principal
+docs/plots/sample_camera_frame.fmt*.bin
+docs/plots/sample_camera_frame_*.png
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.env
+
+# Host: imagen capturada queda en sample_images/ — no la versionamos
+host/sample_images/captured_frame.*
+
+# OS / IDE
+.DS_Store
+.vscode/
+.idea/
+*.swp
+
+# Suspicious / unrelated files que no pertenecen al proyecto
+*.exe
+trojan.*

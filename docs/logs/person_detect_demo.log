@@ -1,0 +1,8 @@
+I (976) person_det: MCUNet person-det demo (128x160 float32)
+I (976) person_det: free heap internal: 374359   PSRAM: 6546616
+I (1016) person_det: model OK: in=[1,128,160,3] type=1  arena=380248/921600  outputs=3
+I (1016) person_det:   out[0]: [1,4,5,18] type=1
+I (1016) person_det:   out[1]: [1,8,10,18] type=1
+I (1016) person_det:   out[2]: [1,16,20,18] type=1
+I (2276) person_det: no-pers best=0.419  heads=[0.419@4x5, 0.025@8x10, 0.020@16x20]  inv=1240736 us  avg=1240736 us
+I (3546) person_det: no-pers best=0.419  heads=[0.419@4x5, 0.025@8x10, 0.020@16x20]  inv=1240731 us  avg=1240733 us

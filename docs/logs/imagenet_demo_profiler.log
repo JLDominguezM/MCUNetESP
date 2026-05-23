@@ -1,0 +1,20 @@
+I (1092) imagenet: MCUNet-IN2 ImageNet demo
+I (1092) imagenet: free heap internal: 273607   PSRAM: 6161592
+W (1132) imagenet: camera init failed — STATIC mode (160x160)
+I (1192) imagenet: model OK: in=[1,160,160,3]  out=[1,1000]  arena=540812/716800
+I (5112) imagenet: ===== PROFILER CSV BEGIN =====
+PAD, 323761
+ADD, 21662
+RESHAPE, 41
+I (5132) imagenet: ===== PROFILER CSV END =====
+I (5132) imagenet: top5=[906,617,834,681,785]  scores=[27,18,16,15,11]  inv=3916807 us  avg=3916807 us
+I (9072) imagenet: top5=[906,617,834,681,785]  scores=[27,18,16,15,11]  inv=3916804 us  avg=3916805 us
+I (13002) imagenet: top5=[906,617,834,681,785]  scores=[27,18,16,15,11]  inv=3916803 us  avg=3916804 us
+I (16932) imagenet: top5=[906,617,834,681,785]  scores=[27,18,16,15,11]  inv=3916810 us  avg=3916806 us
+I (20862) imagenet: top5=[906,617,834,681,785]  scores=[27,18,16,15,11]  inv=3916804 us  avg=3916805 us
+I (24792) imagenet: top5=[906,617,834,681,785]  scores=[27,18,16,15,11]  inv=3916808 us  avg=3916806 us
+I (28722) imagenet: top5=[906,617,834,681,785]  scores=[27,18,16,15,11]  inv=3916805 us  avg=3916805 us
+I (32652) imagenet: top5=[906,617,834,681,785]  scores=[27,18,16,15,11]  inv=3916808 us  avg=3916806 us
+I (36582) imagenet: top5=[906,617,834,681,785]  scores=[27,18,16,15,11]  inv=3916804 us  avg=3916805 us
+I (40512) imagenet: top5=[906,617,834,681,785]  scores=[27,18,16,15,11]  inv=3916809 us  avg=3916806 us
+I (44442) imagenet: top5=[906,617,834,681,785]  scores=[27,18,16,15,11]  inv=3916800 us  avg=3916805 us

@@ -1,0 +1,7 @@
+## ESP-IDF managed components for vww_demo.
+## Run `idf.py reconfigure` to fetch.
+dependencies:
+  espressif/esp-tflite-micro: "^1.3.3"
+  espressif/esp32-camera: "^2.0.13"
+  idf:
+    version: ">=5.2.0"

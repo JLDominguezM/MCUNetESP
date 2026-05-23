@@ -1,0 +1,8 @@
+I (1087) mbv2: MobileNetV2-w0.35 ImageNet demo
+I (1087) mbv2: free heap internal: 273607   PSRAM: 6161592
+I (1347) mbv2: model OK: in=[1,144,144,3]  out=[1,1000]  arena=585916/716800
+I (3007) mbv2: ===== PROFILER CSV BEGIN =====
+I (3017) mbv2: ===== PROFILER CSV END =====
+I (3027) mbv2: top5=[611,885,84,455,489]  scores=[-4,-8,-8,-8,-9]  inv=1648834 us  avg=1648834 us
+I (4697) mbv2: top5=[885,455,971,489,611]  scores=[-11,-11,-12,-13,-13]  inv=1648806 us  avg=1648820 us
+I (6357) mbv2: top5=[611,885,455,489,721]  scores=[-3,-8,-9,-10,-10]  inv=1648836 us  avg=1648825 us

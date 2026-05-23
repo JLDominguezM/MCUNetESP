@@ -1,0 +1,48 @@
+# XIAO ESP32-S3 Sense — 8 MB PSRAM (octal) + 8 MB flash (QIO 80 MHz).
+CONFIG_IDF_TARGET="esp32s3"
+
+# Flash
+CONFIG_ESPTOOLPY_FLASHSIZE_8MB=y
+CONFIG_ESPTOOLPY_FLASHMODE_QIO=y
+CONFIG_ESPTOOLPY_FLASHFREQ_80M=y
+
+# PSRAM (octal, 80 MHz, required for camera + tensor arena)
+CONFIG_SPIRAM=y
+CONFIG_SPIRAM_MODE_OCT=y
+CONFIG_SPIRAM_SPEED_80M=y
+CONFIG_SPIRAM_USE_MALLOC=y
+CONFIG_SPIRAM_TRY_ALLOCATE_WIFI_LWIP=y
+CONFIG_SPIRAM_MALLOC_ALWAYSINTERNAL=16384
+CONFIG_SPIRAM_FETCH_INSTRUCTIONS=y
+CONFIG_SPIRAM_RODATA=y
+
+# Permite que variables marcadas con EXT_RAM_BSS_ATTR vayan a PSRAM (tensor arena).
+CONFIG_SPIRAM_ALLOW_BSS_SEG_EXTERNAL_MEMORY=y
+CONFIG_SPIRAM_ALLOW_NOINIT_SEG_EXTERNAL_MEMORY=y
+
+# CPU
+CONFIG_ESP_DEFAULT_CPU_FREQ_MHZ_240=y
+
+# Logging
+CONFIG_LOG_DEFAULT_LEVEL_INFO=y
+
+# TFLite Micro: optimised int8 kernels via esp-nn (uses Xtensa SIMD).
+CONFIG_NN_OPTIMIZED=y
+
+# Task watchdog: la inferencia bloquea CPU0 unos segundos durante invoke.
+# Subir timeout para que no resetee + desactivar check de idle task (la
+# inferencia ES la app — no nos importa si idle task no corre durante invoke).
+CONFIG_ESP_TASK_WDT_TIMEOUT_S=30
+CONFIG_ESP_TASK_WDT_CHECK_IDLE_TASK_CPU0=n
+CONFIG_ESP_TASK_WDT_CHECK_IDLE_TASK_CPU1=n
+
+# main_task default 3584 bytes; TFLite Micro usa stack durante Invoke (sobre todo
+# en CONV) y puede overflowear → reset silencioso. Subimos a 8 KB.
+CONFIG_ESP_MAIN_TASK_STACK_SIZE=8192
+
+# Habilitar panic detallado para ver la causa del reset si vuelve a pasar.
+CONFIG_ESP_SYSTEM_PANIC_PRINT_REBOOT=y
+CONFIG_ESP_INT_WDT=n
+
+# Partition table: app slot grande para el modelo (~600 KB).
+CONFIG_PARTITION_TABLE_SINGLE_APP_LARGE=y

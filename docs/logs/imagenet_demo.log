@@ -1,0 +1,8 @@
+I (1092) imagenet: MCUNet-IN2 ImageNet demo
+I (1092) imagenet: free heap internal: 273607   PSRAM: 6161592
+I (1362) imagenet: model OK: in=[1,160,160,3]  out=[1,1000]  arena=540812/716800
+I (5292) imagenet: ===== PROFILER CSV BEGIN =====
+I (5302) imagenet: ===== PROFILER CSV END =====
+I (5302) imagenet: top5=[971,562,506,488,611]  scores=[27,1,1,0,0]  inv=3922519 us  avg=3922519 us
+I (9242) imagenet: top5=[971,973,111,506,562]  scores=[39,5,4,3,2]  inv=3922501 us  avg=3922510 us
+I (13172) imagenet: top5=[971,611,750,506,794]  scores=[25,14,11,7,7]  inv=3922435 us  avg=3922485 us

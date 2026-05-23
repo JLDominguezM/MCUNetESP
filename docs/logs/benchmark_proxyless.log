@@ -1,0 +1,8 @@
+I (1092) proxyless: ProxylessNAS-w0.3 ImageNet demo
+I (1092) proxyless: free heap internal: 354711   PSRAM: 6161592
+I (1352) proxyless: model OK: in=[1,176,176,3]  out=[1,1000]  arena=462876/716800
+I (3882) proxyless: top5=[741,750,879,611,824]  scores=[35,22,19,17,14]  inv=2516235 us  avg=2516235 us
+I (6412) proxyless: top5=[741,611,750,824,539]  scores=[25,15,11,10,6]  inv=2516238 us  avg=2516236 us
+I (8942) proxyless: top5=[741,611,455,591,879]  scores=[26,12,11,10,10]  inv=2516217 us  avg=2516230 us
+I (11472) proxyless: top5=[741,885,750,591,611]  scores=[31,9,9,8,8]  inv=2516187 us  avg=2516219 us
+I (14002) proxyless: top5=[741,455,885,879,591]  scores=[36,14,13,11,10]  inv=2516220 us  avg=2516219 us

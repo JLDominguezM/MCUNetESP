@@ -1,0 +1,8 @@
+I (1074) vww: MCUNet-VWW demo on XIAO ESP32-S3 Sense
+I (1074) vww: free heap internal: 354711   PSRAM: 6329528
+I (1344) vww: model OK: in=[1,144,144,3] type=9  out=[1,2] type=9
+I (1344) vww: arena used: 473644 / 614400 bytes
+I (4754) vww: no-pers  scores=[  14, -14]  inv=3397000 us  avg=3397000 us
+I (8164) vww: no-pers  scores=[  23, -23]  inv=3396940 us  avg=3396970 us
+I (11574) vww: no-pers  scores=[  22, -22]  inv=3396964 us  avg=3396968 us
+I (14984) vww: no-pers  scores=[  22, -22]  inv=3396956 us  avg=3396965 us
