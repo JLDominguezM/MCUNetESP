@@ -1,0 +1,22 @@
+I (1067) main_task: Started on CPU0
+I (1077) main_task: Calling app_main()
+I (1087) mbv2: MobileNetV2-w0.35 ImageNet demo
+I (1087) mbv2: free heap internal: 273607   PSRAM: 6161592
+I (1117) camera: Camera PID=0x26 VER=0x42 MIDL=0x7f MIDH=0xa2
+I (1117) camera: Detected OV2640 camera
+I (1127) camera: Detected camera at address=0x30
+I (1347) mbv2: model OK: in=[1,144,144,3]  out=[1,1000]  arena=585916/716800
+I (3167) mbv2: ===== PROFILER CSV BEGIN =====
+I (3177) mbv2: ===== PROFILER CSV END =====
+I (3177) mbv2: top5=[533,824,735,411,885]  scores=[11,2,2,-4,-4]  inv=1648273 us  avg=1648273 us
+I (4847) mbv2: top5=[973,84,115,327,110]  scores=[-1,-2,-2,-3,-5]  inv=1648351 us  avg=1648312 us
+I (6507) mbv2: top5=[115,973,611,110,327]  scores=[-1,-2,-3,-3,-4]  inv=1648270 us  avg=1648298 us
+I (8167) mbv2: top5=[115,110,973,327,611]  scores=[1,-2,-2,-5,-6]  inv=1648298 us  avg=1648298 us
+I (9827) mbv2: top5=[115,973,110,611,327]  scores=[6,5,3,-1,-3]  inv=1648332 us  avg=1648304 us
+I (11487) mbv2: top5=[110,115,973,327,611]  scores=[4,4,-2,-4,-6]  inv=1648270 us  avg=1648299 us
+I (13147) mbv2: top5=[973,115,110,611,84]  scores=[3,3,2,-1,-2]  inv=1648310 us  avg=1648300 us
+I (14807) mbv2: top5=[115,110,973,327,611]  scores=[2,0,-5,-6,-9]  inv=1648327 us  avg=1648303 us
+I (16467) mbv2: top5=[115,973,327,611,110]  scores=[-7,-7,-8,-8,-9]  inv=1648331 us  avg=1648306 us
+I (18127) mbv2: top5=[115,110,973,327,611]  scores=[5,2,2,-4,-4]  inv=1648315 us  avg=1648307 us
+I (19787) mbv2: top5=[115,110,973,327,611]  scores=[9,6,2,2,-3]  inv=1648315 us  avg=1648308 us
+I (21447) mbv2: top5=[115,973,110,327,611]  scores=[-4,-4,-7,-8,-9]  inv=1648330 us  avg=1648310 us

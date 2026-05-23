@@ -1,0 +1,17 @@
+I (1072) main_task: Started on CPU0
+I (1082) main_task: Calling app_main()
+I (1092) proxyless: ProxylessNAS-w0.3 ImageNet demo
+I (1092) proxyless: free heap internal: 354711   PSRAM: 6161592
+I (1132) camera: Camera PID=0x26 VER=0x42 MIDL=0x7f MIDH=0xa2
+I (1132) camera: Detected OV2640 camera
+I (1132) camera: Detected camera at address=0x30
+I (1352) proxyless: model OK: in=[1,176,176,3]  out=[1,1000]  arena=462876/716800
+I (4042) proxyless: top5=[794,735,879,824,984]  scores=[13,12,9,5,5]  inv=2515420 us  avg=2515420 us
+I (6572) proxyless: top5=[794,971,973,109,735]  scores=[17,9,7,6,4]  inv=2515449 us  avg=2515434 us
+I (9102) proxyless: top5=[794,971,879,310,109]  scores=[11,2,2,1,1]  inv=2515475 us  avg=2515448 us
+I (11632) proxyless: top5=[794,611,879,973,109]  scores=[14,8,7,7,5]  inv=2515447 us  avg=2515447 us
+I (14162) proxyless: top5=[794,973,611,904,1]  scores=[13,10,9,9,6]  inv=2515478 us  avg=2515453 us
+I (16692) proxyless: top5=[794,973,611,1,971]  scores=[15,10,9,6,6]  inv=2515506 us  avg=2515462 us
+I (19222) proxyless: top5=[794,973,611,911,824]  scores=[12,11,9,4,4]  inv=2515418 us  avg=2515456 us
+I (21752) proxyless: top5=[1,973,794,611,115]  scores=[14,14,13,12,8]  inv=2515480 us  avg=2515459 us
+I (24282) proxyless: top5=[973,1,115,794,110]  scores=[13,9,9,8,7]  inv=2515454 us  avg=2515458 us

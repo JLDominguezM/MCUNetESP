@@ -49,30 +49,69 @@ Cinco hitos completados:
 
 Capturada a 240×240 RGB565 directamente por el sensor del Sense. Para destrabar la cámara hizo falta forzar `CONFIG_SCCB_HARDWARE_I2C_PORT0=y` en `sdkconfig.defaults` y reiniciar el chip por power-cycle físico tras varios flashes acumulados. Detalles en [`docs/findings.md`](docs/findings.md).
 
-## Demo en vivo (vww_demo)
+## Demos en vivo
 
-Una vez la cámara funciona y el firmware `vww_demo` se reflashea con el Kconfig SCCB correcto, el ciclo es: capturar frame → preprocesar → invocar modelo → log. Sin imagen estática embebida, el modelo predice sobre lo que ve en cada iteración.
+Con la cámara funcionando y los Kconfigs ajustados (`CONFIG_SCCB_HARDWARE_I2C_PORT0=y`), cuatro de los cinco firmware usan el sensor en tiempo real. El loop es: capturar frame OV2640 → resize/quantize → invoke → log. Logs completos en `docs/logs/*_live.log`.
 
-Log real de 10 inferencias consecutivas apuntando la cámara a una persona en condiciones de iluminación ambiental (`docs/logs/vww_demo_live.log`):
+### vww_demo (`docs/logs/vww_demo_live.log`)
 
 ```
-I camera: Camera PID=0x26 VER=0x42 MIDL=0x7f MIDH=0xa2
 I camera: Detected OV2640 camera at address=0x30
-I vww: model OK: in=[1,144,144,3] type=9  out=[1,2] type=9
-I vww: arena used: 473644 / 614400 bytes
-I vww: no-pers  scores=[   1,  -1]  inv=3.40 s
-I vww: PERSON   scores=[ -11,  11]
-I vww: no-pers  scores=[  13, -13]
-I vww: PERSON   scores=[ -11,  11]
-I vww: PERSON   scores=[  -3,   3]
-I vww: no-pers  scores=[   0,   0]
-I vww: no-pers  scores=[   3,  -3]
-I vww: PERSON   scores=[  -2,   2]
-I vww: no-pers  scores=[   4,  -4]
-I vww: no-pers  scores=[  12, -12]
+I vww: model OK: in=[1,144,144,3]  arena=473644 / 614400 bytes
+I vww: no-pers  scores=[   1,  -1]   PERSON   scores=[ -11,  11]
+I vww: no-pers  scores=[  13, -13]   PERSON   scores=[ -11,  11]
+I vww: PERSON   scores=[  -3,   3]   no-pers  scores=[   0,   0]
+I vww: no-pers  scores=[   3,  -3]   PERSON   scores=[  -2,   2]
+I vww: no-pers  scores=[   4,  -4]   no-pers  scores=[  12, -12]
 ```
 
-En 10 inferencias seguidas, 4 dieron PERSON y 6 no-pers, con scores absolutos bajos (mayoría entre ±5). Esto confirma cuantitativamente la brecha out-of-distribution documentada arriba: el modelo está al borde de la decisión, oscilando entre detección y no-detección frame a frame en condiciones reales no controladas. Sobre la imagen del repo MCUNet (entrenamiento ideal), los mismos modelo y firmware dan scores ±51 (decisión clara).
+4 PERSON / 6 no-pers en 10 frames seguidos. Scores absolutos bajos (±0 a ±13). El modelo está al borde de la decisión, oscilando frame a frame. Sobre la imagen del repo MCUNet los mismos modelo+firmware dan scores ±51 (decisión clara) — la brecha entre los dos casos cuantifica empíricamente la limitación OOD.
+
+### imagenet_demo (`docs/logs/imagenet_demo_live.log`)
+
+```
+top5=[824,735,741,885,879]  scores=[ 9, 8, 6, 4, 0]   ← stage, pole, power drill, vault, fur
+top5=[971,562,611,879,703]  scores=[12,12, 6, 5, 2]   ← alp, fountain, jersey, vault, ...
+top5=[971,611,562,879, 84]  scores=[17,13, 8, 1, 1]
+top5=[971,611,562,385, 84]  scores=[18,10,10, 4, 1]
+top5=[611,562,971,978,703]  scores=[12, 8, 5, 3, 0]
+top5=[611,562,971,868,750]  scores=[23,13,13, 5, 3]
+```
+
+`alp`, `fountain`, `jersey`, `stage`, `power drill`. ImageNet no tiene clase "persona"; el modelo asigna lo más cercano del fondo y la iluminación. Latencia consistente: 3.92 s ± 0.05 ms.
+
+### benchmark_mbv2 (`docs/logs/benchmark_mbv2_live.log`)
+
+```
+top5=[533,824,735,411,885]  scores=[11, 2, 2,-4,-4]
+top5=[973, 84,115,327,110]  scores=[-1,-2,-2,-3,-5]
+top5=[115,973,611,110,327]  scores=[-1,-2,-3,-3,-4]
+top5=[115,110,973,327,611]  scores=[ 1,-2,-2,-5,-6]
+top5=[115,973,110,611, 84]  scores=[ 3, 3, 2,-1,-2]
+top5=[115,110,973,327,611]  scores=[ 9, 6, 2, 2,-3]
+```
+
+`Tibetan terrier`, `coral reef`, `flatworm`, `jersey`. Scores mucho más bajos que MCUNet (mayoría negativos) — el modelo expresa muy poca confianza en todo el top-5. Latencia consistente: 1.64 s.
+
+### benchmark_proxyless (`docs/logs/benchmark_proxyless_live.log`)
+
+```
+top5=[794,735,879,824,984]  scores=[13,12, 9, 5, 5]   ← shower curtain dominante
+top5=[794,971,973,109,735]  scores=[17, 9, 7, 6, 4]
+top5=[794,971,879,310,109]  scores=[11, 2, 2, 1, 1]
+top5=[794,611,879,973,109]  scores=[14, 8, 7, 7, 5]
+top5=[794,973,611,904,  1]  scores=[13,10, 9, 9, 6]
+top5=[794,973,611,911,824]  scores=[12,11, 9, 4, 4]
+top5=[794,973,611,911,824]  scores=[15,10, 9, 6, 6]
+top5=[  1,973,794,611,115]  scores=[14,14,13,12, 8]
+top5=[973,  1,115,794,110]  scores=[13, 9, 9, 8, 7]
+```
+
+`shower curtain` (clase 794) en 8 de 9 frames con score 11–17. Mucho más estable que MBV2 sobre la misma imagen, pero igualmente sin relación con el sujeto real. Latencia: 2.51 s.
+
+### person_detect_demo
+
+Único firmware que NO usa cámara en vivo: el modelo `mcunet-person-det` espera input float32 normalizado a [-1, +1], distinto al pipeline int8 de los otros demos. Corre sobre la imagen estática embebida y reporta de forma estable `no-pers best=0.419` (umbral 0.5) — coincide con la inferencia host. Para un demo en vivo de este modelo habría que añadir un image_provider que produzca float32; queda como follow-up.
 
 La imagen se redimensiona al input de cada modelo:
 
