@@ -2,6 +2,10 @@
 
 Despliegue de modelos [MCUNet (MIT Han Lab)](https://github.com/mit-han-lab/mcunet) en una **XIAO ESP32-S3 Sense** usando `esp-tflite-micro` + `esp-nn`.
 
+![Demo en vivo](docs/demo.gif)
+
+Captura real del monitor serial mientras `vww_demo` clasifica frames de la cámara OV2640 del Sense (`PERSON` vs `no-pers`) en tiempo real. Cada inferencia tarda ~3.4 s; el modelo oscila entre las dos clases con scores bajos (±2 a ±13) según el sujeto entra/sale del frame, cuantificando la brecha out-of-distribution analizada en `docs/findings.md`.
+
 - Reporte ejecutivo: [`docs/REPORT.md`](docs/REPORT.md)
 - Tabla técnica completa: [`docs/findings.md`](docs/findings.md)
 
