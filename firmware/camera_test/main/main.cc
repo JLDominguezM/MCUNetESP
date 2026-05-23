@@ -97,31 +97,36 @@ extern "C" void app_main() {
         while (true) vTaskDelay(portMAX_DELAY);
     }
 
-    // Reintentos: el sensor necesita unos frames para estabilizar AGC/AEC.
-    camera_fb_t* fb = nullptr;
-    for (int attempt = 1; attempt <= 15; ++attempt) {
-        vTaskDelay(pdMS_TO_TICKS(200));
-        fb = esp_camera_fb_get();
-        if (fb) {
-            ESP_LOGI(TAG, "fb_get OK on attempt %d", attempt);
-            break;
+    // Captura una secuencia de frames con un delay entre cada uno para que
+    // el sujeto pueda moverse. Cada frame tarda ~16s en transmitirse por
+    // serial (115200 baud + base64), así que el delay sólo controla
+    // cuánto tiempo extra dejamos al sujeto para reposicionarse.
+    const int N = 5;
+    const int delay_ms = 1500;
+    for (int n = 0; n < N; ++n) {
+        // Reintentos: el sensor necesita unos frames para estabilizar AGC/AEC.
+        camera_fb_t* fb = nullptr;
+        for (int attempt = 1; attempt <= 15; ++attempt) {
+            vTaskDelay(pdMS_TO_TICKS(200));
+            fb = esp_camera_fb_get();
+            if (fb) break;
         }
-        ESP_LOGW(TAG, "fb_get NULL (attempt %d/15) — retrying ...", attempt);
-        if (fb) { esp_camera_fb_return(fb); fb = nullptr; }
+        if (!fb) {
+            ESP_LOGE(TAG, "frame %d: fb_get NULL after 15 attempts", n);
+            continue;
+        }
+        ESP_LOGI(TAG, "captured frame %d/%d: %dx%d fmt=%d len=%zu",
+                 n + 1, N, fb->width, fb->height, fb->format, fb->len);
+        ESP_LOGI(TAG, "===== FRAME_BEGIN fmt=%d w=%d h=%d len=%zu n=%d =====",
+                 fb->format, fb->width, fb->height, fb->len, n);
+        EmitBase64(fb->buf, fb->len);
+        ESP_LOGI(TAG, "===== FRAME_END =====");
+        esp_camera_fb_return(fb);
+        if (n < N - 1) {
+            ESP_LOGI(TAG, "waiting %d ms for next frame (move now!) ...", delay_ms);
+            vTaskDelay(pdMS_TO_TICKS(delay_ms));
+        }
     }
-    if (!fb) {
-        ESP_LOGE(TAG, "fb_get NULL after 15 attempts — DVP/DMA not producing frames");
-        while (true) vTaskDelay(portMAX_DELAY);
-    }
-
-    ESP_LOGI(TAG, "captured frame: %dx%d  fmt=%d  len=%zu bytes",
-             fb->width, fb->height, fb->format, fb->len);
-    ESP_LOGI(TAG, "===== FRAME_BEGIN fmt=%d w=%d h=%d len=%zu =====",
-             fb->format, fb->width, fb->height, fb->len);
-    EmitBase64(fb->buf, fb->len);
-    ESP_LOGI(TAG, "===== FRAME_END =====");
-
-    esp_camera_fb_return(fb);
-    ESP_LOGI(TAG, "done. Reset to capture again.");
+    ESP_LOGI(TAG, "done — captured %d frames. Reset to capture again.", N);
     while (true) vTaskDelay(portMAX_DELAY);
 }
