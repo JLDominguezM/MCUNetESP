@@ -10,6 +10,7 @@ Cinco frames reales capturados secuencialmente por la cámara OV2640 del Sense, 
 
 Captura del monitor serial mientras `vww_demo` clasifica frames de la cámara en tiempo real. Cada inferencia tarda ~3.4 s; aquí el modelo oscila entre las dos clases con scores bajos (±2 a ±13) según el sujeto entra/sale del frame — la brecha out-of-distribution analizada en `docs/findings.md`.
 
+- Guía de reproducción paso a paso: [`docs/GUIA_REPRODUCCION.md`](docs/GUIA_REPRODUCCION.md)
 - Reporte ejecutivo: [`docs/REPORT.md`](docs/REPORT.md)
 - Tabla técnica completa: [`docs/findings.md`](docs/findings.md)
 
