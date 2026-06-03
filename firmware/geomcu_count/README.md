@@ -9,20 +9,31 @@ con el host. Hay dos limitaciones que cierran la puerta a un demo
 "imagen completa en vivo": latencia y rounding en kernels grandes.
 Detalle abajo.
 
-![Demo visual de 8 crops 128x160](../../docs/plots/geomcu_demo.gif)
+![Demo del chip en vivo, tres frames consecutivos](../../docs/plots/geomcu_chip_demo.gif)
+
+Tres frames consecutivos capturados por la OV2640 del XIAO ESP32-S3
+Sense. El recuadro verde marca el crop central 160×128 que va al modelo.
+El banner inferior es el output real del chip: `count` es el sum del
+density map después del softplus, `latency` los segundos que tomó el
+`Invoke`, `max density` el pixel más activado, e `interior` la suma
+sobre la región sin halo. Cuatro frames se intentaron capturar; el
+script timeoutea en 240 s así que se quedó con los 3 que alcanzaron a
+mandar su RESULT antes del corte.
+
+![Demo visual sobre crops 128x128 del test set](../../docs/plots/geomcu_demo.gif)
 
 Ocho crops 128×160 sacados de imágenes ShanghaiTech Part B a su
-resolución natural (= lo que vería un patch del tiling 8×8). Para cada
-uno corre el mismo modelo TFLite int8 que está flasheado en el chip y
-overlayea el density map sobre el input. `pred` es el sum del density
-del modelo, `gt` es el número de puntos anotados del dataset que caen
-en ese crop. Imágenes pickeadas del test set.
+resolución natural. Para cada uno corre el mismo modelo TFLite int8
+que está flasheado en el chip (pero la inferencia se hizo en host
+para poder mostrar el density map overlayed). `pred` es el sum del
+density del modelo, `gt` es el número de puntos anotados del dataset
+que caen en ese crop.
 
 ![Captura del serial del chip durante una invoke](../../docs/geomcu_demo.gif)
 
 El monitor serial mientras la placa arranca, carga el modelo en el
-arena de PSRAM y corre la inferencia. La latencia reportada (~47 s) y
-el density sum coinciden con `firmware/geomcu_count/main/main.cc`.
+arena de PSRAM y corre la inferencia. La latencia reportada (~47 s)
+y el density sum coinciden con `firmware/geomcu_count/main/main.cc`.
 
 ## Lo que funciona
 
