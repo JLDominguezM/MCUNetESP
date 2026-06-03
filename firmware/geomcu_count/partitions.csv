@@ -1,0 +1,7 @@
+# Partition table custom para geomcu_count.
+# Necesita 3 MB para app: modelo (~160 KB) + imagen test embebida (768x1024x3 = 2.4 MB)
+# + código + TFLM. Resto del flash queda libre.
+# Name,   Type, SubType, Offset,   Size,  Flags
+nvs,      data, nvs,     0x9000,   0x6000
+phy_init, data, phy,     0xf000,   0x1000
+factory,  app,  factory, 0x10000,  3M
