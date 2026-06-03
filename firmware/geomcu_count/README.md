@@ -9,6 +9,21 @@ con el host. Hay dos limitaciones que cierran la puerta a un demo
 "imagen completa en vivo": latencia y rounding en kernels grandes.
 Detalle abajo.
 
+![Demo visual de 8 crops 128x160](../../docs/plots/geomcu_demo.gif)
+
+Ocho crops 128×160 sacados de imágenes ShanghaiTech Part B a su
+resolución natural (= lo que vería un patch del tiling 8×8). Para cada
+uno corre el mismo modelo TFLite int8 que está flasheado en el chip y
+overlayea el density map sobre el input. `pred` es el sum del density
+del modelo, `gt` es el número de puntos anotados del dataset que caen
+en ese crop. Imágenes pickeadas del test set.
+
+![Captura del serial del chip durante una invoke](../../docs/geomcu_demo.gif)
+
+El monitor serial mientras la placa arranca, carga el modelo en el
+arena de PSRAM y corre la inferencia. La latencia reportada (~47 s) y
+el density sum coinciden con `firmware/geomcu_count/main/main.cc`.
+
 ## Lo que funciona
 
 | | valor |
